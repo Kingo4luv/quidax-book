@@ -1,0 +1,17 @@
+
+@import './styles/base/reset';
+@import './styles/base/variables';
+@import './styles/base/base';
+
+@import './styles/layouts/header';
+@import './styles/layouts/cart';
+@import './styles/layouts/featured';
+@import './styles/layouts/books';
+@import './styles/layouts/details';
+
+
+@import './styles/modules/utils';
+
+.App{
+    padding: 6rem 0rem;
+}

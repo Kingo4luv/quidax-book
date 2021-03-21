@@ -1,0 +1,22 @@
+//colors
+$white: #fff;
+$black: #000;
+$grey: #999999;
+$grey-lighter: #aaaaaa;
+$grey-lightest: #f8f8f8;
+$grey-border: #eeeeee;
+$grey-input-border: #dddddd;
+$accent: #66C100;
+$danger: #C12402;
+
+
+//font
+$font-family: 'Ubuntu', sans-serif;
+
+$base-font-size: 100%;
+
+// Responsiveness sizes
+$mobile: "screen and (max-width: 600px)";
+$tablet-max: "screen and (max-width: 980px)";
+$tablet: "(min-width: 600px) and (max-width: 980px)";
+$desktop: "screen and (min-width: 1120px)";

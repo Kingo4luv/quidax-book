@@ -1,0 +1,222 @@
+#cart{
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+
+    .cart-background{
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+        display: flex;
+        justify-content: flex-end;
+
+        aside{
+            width: 26%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            z-index: 51;
+            background-color: $grey-lightest;
+            @media #{$mobile} {
+                width: 100%;
+            }
+            .header{
+                padding: 0 1.5rem;
+                height: 6rem;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px solid $grey-border;
+                background-color: $white;
+                @media #{$mobile} {
+                    padding: 1rem 1rem;
+                    height: 5rem;
+                }
+                .icon-wrapper{
+                    display: flex;
+                    align-items: center;
+                    .icon-button{
+                         margin-right: 0.5rem;
+                         margin-top: 0.2rem;
+                    }
+                    .icon-title{
+                        font-size: 0.875rem;
+                        line-height: 1.25rem;
+                        font-weight: 600;
+                        line-height: 0.75rem;
+                        margin-right: 0.5rem;
+                    }
+                }
+            }
+            .body{
+                padding: 0 2rem;
+                width: 100%;
+                height: 90%;
+                overflow-y: scroll;
+                @media #{$mobile} {
+                    padding: 0 1.5rem;
+                }
+                .cart-item{
+                    height: 9rem;
+                    display: flex;
+                    padding: 1.8rem 0;
+                    border-bottom: 1px solid $grey-border;
+                    @media #{$mobile} {
+                        padding: 1.6rem 0;
+                        height: 8rem;
+                    }
+                    .image-container{
+                        width: 15%;
+                        height: 100%;
+                        flex: none;
+                        border: 1px solid red;
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+                    .cart-item-meta{
+                        display: flex;
+                        margin-left: 0.8rem;
+                        justify-content: space-between;
+                        width: 85%;
+                        .meta-left{
+                            width: 70%;
+                            display: flex;
+                            padding: 0.2rem 0;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            @media #{$mobile} {
+                                 width: 60%;
+                            }
+                            .book-title {
+                                font-size: 0.8rem;
+                                line-height: 1rem;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                            }
+                            .book-author{
+                                font-size: 0.8rem;
+                                line-height: 0.25rem;
+
+                            }
+                            .remove-book{
+                                font-size: 0.8rem;
+                                line-height: 0.75rem;
+                            }
+                        }
+                        .meta-right{
+                            width: 30%;
+                            display: flex;
+                            padding: 0.2rem 0;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            text-align: right;
+                            @media #{$mobile} {
+                                width: 40%;
+                                margin-right: 1rem;
+                            }
+                            .single-amount{
+                                font-size: 0.9rem;
+                            }
+                            .collective-amount{
+                                font-size: 0.9rem;
+                                line-height: 0.75rem;
+                                font-weight: bold;
+                                @media #{$mobile} {
+                                    line-height: 2rem;
+                                }
+                            }
+                            .quantity-control{
+                                flex: none;
+                                display: flex;
+                                align-items: center;
+                                justify-content: flex-end;
+                                margin-top: 0.2rem;
+                                .btn{
+                                    height: 2rem;
+                                    width: 2rem;
+                                    background-color: #f9f9fb;
+                                    border: 1px solid #dddddd;
+                                }
+                                .quantity{
+                                    flex:none;
+                                    display: block;
+                                    height: 2rem;
+                                    width: 2rem;
+                                    font-size: 0.8rem;
+                                    padding: 0.5rem 0;
+                                    text-align: center;
+                                    border-top: 1px solid #dddddd;
+                                    border-bottom: 1px solid #dddddd;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .footer {
+                    margin-top: 1rem;
+                    margin-bottom: 3rem;
+                    width: 100%;
+
+                    .summary {
+                        display: flex;
+                        align-items: baseline;
+                        justify-content: space-between;
+
+                        .summary-title {
+                            font-size: 0.9rem;
+                        }
+
+                        .summary-total {
+                            font-size: 2rem;
+                            font-weight: lighter;
+                            color: $black;
+                        }
+                    }
+                    
+                }
+
+                .cart-btn {
+                    margin-top: 2rem;
+                    width: 100%;
+                    height: 4.5rem;
+                    display: flex;
+                    align-items: center;
+                    padding: 0rem 2rem;
+                    background-color: $black;
+                    -webkit-box-shadow: -1px 25px 100px 9px rgba(0, 0, 0, 0.28);
+                    -moz-box-shadow: -1px 25px 100px 9px rgba(0, 0, 0, 0.28);
+                    box-shadow: -1px 25px 100px 9px rgba(0, 0, 0, 0.28);
+                    @media #{$mobile} {
+                        padding: 0rem 1rem;
+                    }
+
+                    .btn-title {
+                        margin-left: 4rem;
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                        color: $white;
+                        @media #{$mobile} {
+                            margin-left: 2rem;
+                        }
+                    }
+                }
+                }
+            }
+            
+    }
+
+
+}
