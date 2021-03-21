@@ -18,6 +18,7 @@ const BookDetail = () => {
     useEffect(() => {
         getBooks();
         getBook(bookId)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     let history = useHistory();

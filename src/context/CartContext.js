@@ -47,11 +47,10 @@ const CartContextProvider = (props) => {
         if (!book) {
             return;
         }
-        if (book.available_copies >= book.quantity) {
+        if (book.available_copies > book.quantity) {
             book.quantity++
             book.total += book.price
         }
-        return;
 
     }
 
@@ -66,7 +65,6 @@ const CartContextProvider = (props) => {
         if(book.quantity === 0){
             return removeFromCart(bookIndex)
         }
-        return;
 
     }
 

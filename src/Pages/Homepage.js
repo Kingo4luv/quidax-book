@@ -14,6 +14,7 @@ const Homepage = () => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         getBooks();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
     const getBooks = async()=> {
