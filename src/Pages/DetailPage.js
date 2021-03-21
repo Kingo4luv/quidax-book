@@ -16,10 +16,11 @@ const BookDetail = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getBooks();
-        getBook(bookId)
+        if(!book){
+           getBooks();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [book])
 
     let history = useHistory();
     const goToPreviousPath = () => {
@@ -28,16 +29,19 @@ const BookDetail = () => {
 
     const getBook = (bookId) => {
         
-        const book = books.find(book => book.id === Number(bookId))
-        setBook(book);
-        setLoading(false);
+        const returnedBook = books.find(book => book.id === Number(bookId))
+        setBook(returnedBook)
+        if(typeof returnedBook !== 'undefined'){
+            setLoading(false);
+        }
     }    
 
     const getBooks = async () => {
-        setLoading(true);
         const res = await fetch('https://quidax-feec-graphql.herokuapp.com/books');
-        const books = await res.json();
-        setAllBooks([...books]);
+        const returnedBooks = await res.json();
+        setAllBooks([...returnedBooks]);
+        getBook(bookId)
+
     }
 
     const getCopies = (copies) => {
@@ -52,9 +56,6 @@ const BookDetail = () => {
         return(
             <Loader/>
         )
-    }
-    if(book === 'undefined'){
-        window.location('/');
     }
 
     return(
@@ -133,7 +134,13 @@ const BookDetail = () => {
                         <div className="genre-and-tags">
                             <dl className="genre">
                                 <dt>Genre</dt>
-                                <dd>{book.genres[0].name}</dd>
+                                <dd>
+                                    {book.genres.slice(0,2).map((genre, i) => {
+                                    return (
+                                        <span key={i}>{genre.name}{ i !== book.genres.slice(0,2).length - 1 ? ', ': ''}</span>
+                                    )
+                                })}
+                                </dd>
                             </dl>
                             <dl className="tags">
                                 <dt>Tags</dt>

@@ -6,7 +6,7 @@ const CartContextProvider = (props) => {
     const [cart, setCart] = useState([]);
     const [cartIsOpen, setCartIsOpen] = useState(false);
 
-    const addToCart = ({title, price, image_url, authors, available_copies, id}) => {
+    const addToCart = ({title, price, image_url, authors, id}) => {
         const book = cart.find((item) => item.id === id);
         if(book){
             increaseBookQuantity(id)
@@ -20,7 +20,6 @@ const CartContextProvider = (props) => {
             price,
             authors,
             image_url,
-            available_copies,
             quantity: 1,
             total: parseFloat(price) * 1
         }
@@ -43,14 +42,17 @@ const CartContextProvider = (props) => {
     }
 
     const increaseBookQuantity = (id) => {
-        const book = cart.find((item, index) => parseInt(id) === item.id);
-        if (!book) {
+        const bookIndex = cart.findIndex(item => parseInt(item.id) === parseInt(id));
+        if (bookIndex < 0) {
             return;
         }
-        if (book.available_copies > book.quantity) {
-            book.quantity++
-            book.total += book.price
-        }
+        const book = cart.find((item, index) => parseInt(id) === item.id);
+        book.quantity++
+        book.total += book.price
+
+        const updatedBooks = cart.splice(bookIndex, 1, book);
+        setCart([...updatedBooks]);
+        return;
 
     }
 
@@ -65,6 +67,9 @@ const CartContextProvider = (props) => {
         if(book.quantity === 0){
             return removeFromCart(bookIndex)
         }
+        const updatedBooks = cart.splice(bookIndex, 1, book);
+        setCart([...updatedBooks]);
+        return;
 
     }
 
