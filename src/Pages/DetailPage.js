@@ -1,7 +1,6 @@
 import Button from "../Components/Button"
 import {useParams, useHistory} from "react-router-dom"
 import { useContext,  useEffect,  useState } from "react"
-import { BookContext } from "../context/BookContext"
 import ReactStars from "react-rating-stars-component";
 import Loader from "../Components/Loader";
 import { CartContext } from "../context/CartContext";
@@ -10,38 +9,26 @@ import Cart from "../Components/Cart";
 
 const BookDetail = () => {
     const {bookId} = useParams()
-    const {books, setAllBooks} = useContext(BookContext);
     const {addToCart, cartIsOpen} = useContext(CartContext);
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if(!book){
-           getBooks();
-        }
+           getBook();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [book])
+    }, [])
 
     let history = useHistory();
     const goToPreviousPath = () => {
         history.goBack()
     }
+  
 
-    const getBook = (bookId) => {
-        
-        const returnedBook = books.find(book => book.id === Number(bookId))
+    const getBook = async () => {
+        const res = await fetch(`https://quidax-feec-graphql.herokuapp.com/books/${bookId}`);
+        const returnedBook = await res.json();
         setBook(returnedBook)
-        if(typeof returnedBook !== 'undefined'){
-            setLoading(false);
-        }
-    }    
-
-    const getBooks = async () => {
-        const res = await fetch('https://quidax-feec-graphql.herokuapp.com/books');
-        const returnedBooks = await res.json();
-        setAllBooks([...returnedBooks]);
-        getBook(bookId)
-
+        setLoading(false);
     }
 
     const getCopies = (copies) => {
