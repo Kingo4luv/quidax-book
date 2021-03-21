@@ -6,7 +6,6 @@ import BookDetail from './Pages/DetailPage';
 import BookContextProvider from './context/BookContext';
 import CartContextProvider from './context/CartContext';
 
-const queryClient = new QueryClient();
 
 
 function App() { 
