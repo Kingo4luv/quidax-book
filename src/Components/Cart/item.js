@@ -29,7 +29,7 @@ const CartItem = ({book, index}) => {
                             <button className="btn" onClick={(() => increaseBookQuantity(book.id))}>+</button>
                         </div>
                     </div>
-                    <span className="collective-amount">${book.price * book.quantity}</span>
+                    <span className="collective-amount">${(book.price * book.quantity).toFixed(2)}</span>
                 </div>
             </div>
         </div>
