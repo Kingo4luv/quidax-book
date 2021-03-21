@@ -102,6 +102,9 @@
                             .book-title {
                                 font-size: 0.8rem;
                                 line-height: 1rem;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
                             }
                             .book-author{
                                 font-size: 0.8rem;
