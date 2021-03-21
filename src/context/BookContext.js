@@ -9,10 +9,8 @@ const BookContextProvider = (props) => {
         setBooks(books)
     }
 
-    
-
     return (
-        <BookContext.Provider value={{books, setAllBooks}}>
+        <BookContext.Provider value={{books,  setAllBooks}}>
             {props.children}
         </BookContext.Provider>
     )

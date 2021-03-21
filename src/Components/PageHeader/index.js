@@ -6,9 +6,11 @@ import SearchIcon from '../../assets/search.svg';
 import CartIcon from '../../assets/cart.svg';
 import BackArrowIcon from '../../assets/arrow.svg';
 import {motion, AnimatePresence} from 'framer-motion';
+import { useContext, useState } from 'react';
+import { CartContext } from "../../context/CartContext";
 
-import { useState } from 'react';
-const PageHeader = ({toggleCart}) => {
+const PageHeader = () => {
+     const {toggleCart, cart} = useContext(CartContext);
     const [openMobileSearch, setOpenMobileSearch] = useState(false);
     const toggleMobileSearch = () => {
         setOpenMobileSearch(!openMobileSearch)
@@ -37,7 +39,7 @@ const PageHeader = ({toggleCart}) => {
                 </Link>
                 <button className="cart-icon" onClick={toggleCart}>
                     <img src={CartIcon} alt="books"/>
-                    <span>3</span>
+                    <span>{cart.length}</span>
                 </button>
             </div>
         </header>

@@ -1,6 +1,11 @@
 import {Link} from 'react-router-dom'
 import ReactStars from "react-rating-stars-component";
+import { CartContext } from '../../../context/CartContext';
+import { useContext } from 'react';
+
 const BookCard = ({book}) => {
+
+    const {addToCart} = useContext(CartContext);
 
     const getCopies = (copies) => {
         if(copies > 0){
@@ -69,7 +74,7 @@ const BookCard = ({book}) => {
                     <span className="price">${book.price}</span>
                     <span className={`${book.available_copies > 0 ? 'stock' : 'no-stock'}`}>{getCopies(book.available_copies)} </span>
                 </div>
-                <div className="add-to-cart">
+                {book.available_copies > 0 && (<div className="add-to-cart" onClick={(() => addToCart(book))}>
                     <span className="icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd" d="M19.5545 13.3568L6.90606 14.6356C6.56202 14.6699 6.2604 15.0034 6.2604 15.3489C6.2604 15.662 6.51515 15.917 6.82828 15.917H19.4693C19.9404 15.917 20.3216 16.2986 20.3216 16.7691C20.3216 17.2396 19.9404 17.6214 19.4693 17.6214H6.82828C6.81374 17.6214 6.79899 17.621 6.78444 17.6202C5.56667 17.597 4.58061 16.6109 4.55737 15.3931C4.55677 15.3784 4.55636 15.3636 4.55636 15.3491C4.55636 14.758 4.78141 14.1836 5.1903 13.7317C5.59939 13.2798 6.14828 12.9986 6.73657 12.9398L7.14545 12.899L4.48384 3.70424H2.85212C2.38141 3.70424 2 3.32263 2 2.85212C2 2.38162 2.38141 2 2.85212 2H5.12424C5.50364 2 5.83737 2.25091 5.94263 2.61515L6.42242 4.27212H19.4693C19.9404 4.27212 20.3216 4.65354 20.3216 5.12424V12.5089C20.3216 12.9469 19.9897 13.3131 19.5545 13.3568ZM18.6174 5.97636H6.91556L8.8697 12.7267L18.6174 11.7378V5.97636Z" fill="black"/>
@@ -80,7 +85,7 @@ const BookCard = ({book}) => {
                     <span className="title">
                         Add to cart
                     </span>
-                </div>
+                </div>)}
             </div>
         </div>
     )

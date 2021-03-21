@@ -29,9 +29,17 @@ const BookDetail = () => {
         setAllBooks([...books]);
     }
 
+    const getCopies = (copies) => {
+        if (copies > 0) {
+            return `${copies} copies available`
+        } else {
+            return 'Out of stock'
+        }
+    }
+
     if(loading){
         return(
-            <span>Loading.....</span>
+            <p>Loading....</p>
         )
     }
 
@@ -49,16 +57,16 @@ const BookDetail = () => {
                     </button>
                 </div>
                 <div className="image-wrapper">
-                    <img src="https://res.cloudinary.com/quidaxengineering/image/upload/v1611740637/feec/built-to-last-cover_cb92oa.jpg" alt="book" />
+                    <img src={book.image_url} alt={book.title} />
                 </div>
 
                 <div className="meta">
-                    <p className="stock">23 Copies available</p>
+                    <p className={`${book.available_copies > 0 ? 'stock' : 'no-stock'}`}>{getCopies(book.available_copies)}</p>
                     <p className="price">${book.price}</p>
                 </div>
-                <div className="aside-button">
+                {book.available_copies > 0 && (<div className="aside-button">
                     <Button title="Add to cart"/>
-                </div>
+                </div>)}
             </aside>
             <main>
                 <div className="content">
@@ -132,7 +140,7 @@ const BookDetail = () => {
                     </div>
                 </div>
 
-                <div className="mobile-cart-button">
+                {book.available_copies > 0 && (<div className="mobile-cart-button">
                     <button type="button" className="details-cart-button">
                         <span className="btn-icon">
                             <svg width="24" height="24" className="cart-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -146,14 +154,14 @@ const BookDetail = () => {
                              Add to cart
                             </span>
                             <span className="btn-stock">
-                            23 Copies available
+                            {book.available_copies} Copies available
                             </span>
                         </div>
                         <span className="btn-price">
-                            $29.99
+                            ${book.proce}
                         </span>
                     </button>
-                </div>
+                </div>)}
             </main>
         </div>
     )

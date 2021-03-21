@@ -2,10 +2,14 @@ import Books from '../Components/Home/Books';
 import Featured from '../Components/Home/FeaturedBook';
 import { useEffect, useContext } from 'react';
 import {BookContext} from '../context/BookContext';
+import { CartContext } from '../context/CartContext';
+import Cart from '../Components/Cart'
+import {AnimatePresence} from 'framer-motion';
 
 
 const Homepage = () => {
     const {books, setAllBooks} = useContext(BookContext);
+    const {cartIsOpen} = useContext(CartContext);
     useEffect(() => {
         getBooks();
     })
@@ -18,10 +22,17 @@ const Homepage = () => {
 
 
     return (
-        <div className="home">
-            <Featured />
-            <Books books={books} />
-        </div>
+        <>
+            <AnimatePresence>
+                {cartIsOpen && (
+                <Cart />
+                )}
+            </AnimatePresence>
+            <div className="home">
+                <Featured  books={books}/>
+                <Books books={books} />
+            </div>
+        </>
     )
 }
 

@@ -2,7 +2,6 @@ import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import FeaturedBook from "./book";
-import { useEffect, useState } from 'react';
 
 const options = {
     loop: true,
@@ -23,18 +22,7 @@ const options = {
         }
 };
 
-const Featured = () => {
-    
-    useEffect(() => {
-        getBooks();
-    }, [])
-    const [books, setBooks] = useState([]);
-
-    const getBooks = async () => {
-        const res = await fetch('https://quidax-feec-graphql.herokuapp.com/books');
-        const books = await res.json();
-        setBooks([...books]);
-    }
+const Featured = ({books}) => {
     return(
         <div id="featured-books">
             <div className="title-section">

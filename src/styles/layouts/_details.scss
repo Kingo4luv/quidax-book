@@ -63,6 +63,9 @@
                 line-height: 0.1rem;
                 color: $accent;
             }
+            .no-stock {
+                color: $danger;
+            }
             .price{
                 font-size: 2rem;
                 line-height: 0.2rem;
@@ -256,10 +259,10 @@
              }
 
              .description{
-                 font-size: 0.9rem;
+                 font-size: 1rem;
                  p{
                      margin: 1.3rem 0;
-                     line-height: 1.4rem;
+                     line-height: 2rem;
                  }
              }
 
