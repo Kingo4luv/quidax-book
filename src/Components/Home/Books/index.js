@@ -7,9 +7,9 @@ const Books = ({books}) => {
                     <h4 className="title">All Books</h4>
                 </div>
                 <div className="books-wrapper">
-                    {books.map(book => {
+                    {books.map((book, i) => {
                         return(
-                            <BookCard book={book} />
+                            <BookCard book={book} key={i}/>
                         )
                     })}
                 </div>

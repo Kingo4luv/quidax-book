@@ -11,22 +11,22 @@ const FeaturedBook = ({book}) => {
                     <p className="status">Available</p>
                     <dl>
                         <h2>{book.title}</h2>
-                        <dd className="author">{book.authors.map((author, i) => {
+                        <dt className="author">{book.authors.map((author, i) => {
                             return(
-                                <span>{author.name}{ i !== book.authors.length - 1 ? ', ': ''}</span>
+                                <span key={i}>{author.name}{ i !== book.authors.length - 1 ? ', ': ''}</span>
                             )
-                        })}</dd>
+                        })}</dt>
                         <dd>{new Date(book.release_date).getFullYear}</dd>
                         <dt>Genre</dt>
                         <dd>{book.genres.map((genre, i) => {
                             return (
-                                <span>{genre.name}{ i !== book.genres.length - 1 ? ', ': ''}</span>
+                                <span key={i}>{genre.name}{ i !== book.genres.length - 1 ? ', ': ''}</span>
                             )
                         })}</dd>
                         <dt>Tags</dt>
                         <dd>{book.tags.map((tag, i) => {
                             return (
-                                <span>{tag.name}{ i !== book.tags.length - 1 ? ', ': ''}</span>
+                                <span key={i}>{tag.name}{ i !== book.tags.length - 1 ? ', ': ''}</span>
                             )
                         })}</dd>
                     </dl>
@@ -52,14 +52,14 @@ const FeaturedBook = ({book}) => {
                     </div>
                     <div className="right-meta">
                         <div className="rating-meta">
-                            <dd>
+                            <dl>
                                 <dt className="rating">
                                     <span>Ratings:</span> {book.rating}
                                 </dt>
-                                <dl>
+                                <dd>
                                     <ReactStars count={Math.floor(book.rating)} isHalf={true} size={16} color="#ffd700" />
-                                </dl>
-                            </dd>
+                                </dd>
+                            </dl>
                         </div>
                     </div>
                 </div>

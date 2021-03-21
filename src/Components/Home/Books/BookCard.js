@@ -27,13 +27,13 @@ const BookCard = ({book}) => {
                     <p className="author">
                         {book.authors.slice(0,2).map((author, i) => {
                             return (
-                                <span>{author.name}{ i !== book.authors.length - 1 ? ', ': ''}</span>
+                                <span key={i}>{author.name}{ i !== book.authors.length - 1 ? ', ': ''}</span>
                             )
                         })}
                     </p>
                     <p className="tags">{book.tags.slice(0,2).map((tag, i) => {
                             return (
-                                <span>{tag.name}{ i !== book.tags.length - 1 ? ', ': ''}</span>
+                                <span key={i}>{tag.name}{ i !== book.tags.length - 1 ? ', ': ''}</span>
                             )
                         })}
                     </p>
@@ -59,14 +59,14 @@ const BookCard = ({book}) => {
                     </div>
                     <div className="right-meta">
                         <div className="rating-meta">
-                            <dd>
+                            <dl>
                                 <dt className="rating">
                                     <span>Ratings:</span> {book.rating}
                                 </dt>
-                                <dl>
+                                <dd>
                                     <ReactStars count={Math.floor(book.rating)} isHalf={true} size={18} color="#67c100" />
-                                </dl>
-                            </dd>
+                                </dd>
+                            </dl>
                         </div>
                     </div>
                 </div>

@@ -32,9 +32,9 @@ const Featured = ({books}) => {
                 <div className="featured-books-wrapper">
                     <OwlCarousel className='owl-theme' {...options}  nav> 
                         {
-                            books.filter(book => book.featured !== null).map(book => {
+                            books.filter(book => book.featured !== null).map((book, i) => {
                             return(
-                                <FeaturedBook book={book}/>
+                                <FeaturedBook book={book} key={i}/>
                             )
                         })}
                     </OwlCarousel>

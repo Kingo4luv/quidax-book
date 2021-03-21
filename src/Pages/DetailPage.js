@@ -1,19 +1,29 @@
 import Button from "../Components/Button"
-import {useParams} from "react-router-dom"
+import {useParams, useHistory} from "react-router-dom"
 import { useContext,  useEffect,  useState } from "react"
 import { BookContext } from "../context/BookContext"
 import ReactStars from "react-rating-stars-component";
+import Loader from "../Components/Loader";
+import { CartContext } from "../context/CartContext";
+import {AnimatePresence} from 'framer-motion';
+import Cart from "../Components/Cart";
 
 const BookDetail = () => {
     const {bookId} = useParams()
     const {books, setAllBooks} = useContext(BookContext);
+    const {addToCart, cartIsOpen} = useContext(CartContext);
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getBooks();
         getBook(bookId)
-    })
+    }, [])
+
+    let history = useHistory();
+    const goToPreviousPath = () => {
+        history.goBack()
+    }
 
     const getBook = (bookId) => {
         
@@ -39,21 +49,32 @@ const BookDetail = () => {
 
     if(loading){
         return(
-            <p>Loading....</p>
+            <Loader/>
         )
+    }
+    if(book === 'undefined'){
+        window.location('/');
     }
 
     return(
+        <>
+        <AnimatePresence>
+            {cartIsOpen && (
+            <Cart />
+            )}
+        </AnimatePresence>
         <div id="detail">
             <aside>
                 <div className="back">
-                    <button>
+                    <button onClick={goToPreviousPath}>
                         <span className="icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M20 13.2819V11.5338H7.37343L12.6712 6.23606L11.4351 5L4.90132 11.5338L4 12.4078L4.90132 13.2819L11.4351 19.8157L12.6712 18.5796L7.37343 13.2819H20Z" fill="black"/>
                             </svg>
                         </span>
-                        <span className="title">Back</span>
+                        <span className="title">
+                            Back
+                        </span>
                     </button>
                 </div>
                 <div className="image-wrapper">
@@ -64,7 +85,7 @@ const BookDetail = () => {
                     <p className={`${book.available_copies > 0 ? 'stock' : 'no-stock'}`}>{getCopies(book.available_copies)}</p>
                     <p className="price">${book.price}</p>
                 </div>
-                {book.available_copies > 0 && (<div className="aside-button">
+                {book.available_copies > 0 && (<div className="aside-button" onClick={(() => addToCart(book))}>
                     <Button title="Add to cart"/>
                 </div>)}
             </aside>
@@ -97,40 +118,40 @@ const BookDetail = () => {
                             </div>
                             <div className="right-meta">
                                 <div className="rating-meta">
-                                    <dd>
+                                    <dl>
                                         <dt className="rating">
                                             <span>Ratings:</span> {book.rating}
                                         </dt>
-                                        <dl>
+                                        <dd>
                                             <ReactStars count={Math.floor(book.rating)} isHalf={true} size={18} color="#67c100" />
-                                        </dl>
-                                    </dd>
+                                        </dd>
+                                    </dl>
                                 </div>
                             </div>
                         </div>
                         <div className="genre-and-tags">
-                            <dd className="genre">
+                            <dl className="genre">
                                 <dt>Genre</dt>
-                                <dl>{book.genres[0].name}</dl>
-                            </dd>
-                            <dd className="tags">
+                                <dd>{book.genres[0].name}</dd>
+                            </dl>
+                            <dl className="tags">
                                 <dt>Tags</dt>
-                                <dl>{book.tags.slice(0,2).map(tag => {
+                                <dd>{book.tags.slice(0,2).map((tag, i) => {
                                     return (
-                                        <span>{tag.name}</span>
+                                        <span key={i}>{tag.name}{ i !== book.tags.slice(0,2).length - 1 ? ', ': ''}</span>
                                     )
-                                })}</dl>
-                            </dd>
+                                })}</dd>
+                            </dl>
                         </div>
                         <div className="publisher-and-released">
-                            <dd className="publisher">
+                            <dl className="publisher">
                                 <dt>Publisher</dt>
-                                <dl>{book.publisher}</dl>
-                            </dd>
-                            <dd className="released">
+                                <dd>{book.publisher}</dd>
+                            </dl>
+                            <dl className="released">
                                 <dt>Released</dt>
-                                <dl>{new Date(book.release_date).toDateString()}</dl>
-                            </dd>
+                                <dd>{new Date(book.release_date).toDateString()}</dd>
+                            </dl>
                         </div>
                     </div>
 
@@ -141,7 +162,7 @@ const BookDetail = () => {
                 </div>
 
                 {book.available_copies > 0 && (<div className="mobile-cart-button">
-                    <button type="button" className="details-cart-button">
+                    <button type="button" className="details-cart-button" onClick={(() => addToCart(book))}>
                         <span className="btn-icon">
                             <svg width="24" height="24" className="cart-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path style={{fill:'white' }} fillRule="evenodd" clipRule="evenodd" d="M19.5545 13.3568L6.90606 14.6356C6.56202 14.6699 6.2604 15.0034 6.2604 15.3489C6.2604 15.662 6.51515 15.917 6.82828 15.917H19.4693C19.9404 15.917 20.3216 16.2986 20.3216 16.7691C20.3216 17.2396 19.9404 17.6214 19.4693 17.6214H6.82828C6.81374 17.6214 6.79899 17.621 6.78444 17.6202C5.56667 17.597 4.58061 16.6109 4.55737 15.3931C4.55677 15.3784 4.55636 15.3636 4.55636 15.3491C4.55636 14.758 4.78141 14.1836 5.1903 13.7317C5.59939 13.2798 6.14828 12.9986 6.73657 12.9398L7.14545 12.899L4.48384 3.70424H2.85212C2.38141 3.70424 2 3.32263 2 2.85212C2 2.38162 2.38141 2 2.85212 2H5.12424C5.50364 2 5.83737 2.25091 5.94263 2.61515L6.42242 4.27212H19.4693C19.9404 4.27212 20.3216 4.65354 20.3216 5.12424V12.5089C20.3216 12.9469 19.9897 13.3131 19.5545 13.3568ZM18.6174 5.97636H6.91556L8.8697 12.7267L18.6174 11.7378V5.97636Z" fill="black"/>
@@ -158,12 +179,13 @@ const BookDetail = () => {
                             </span>
                         </div>
                         <span className="btn-price">
-                            ${book.proce}
+                            ${book.price}
                         </span>
                     </button>
                 </div>)}
             </main>
         </div>
+     </>
     )
 }
 
