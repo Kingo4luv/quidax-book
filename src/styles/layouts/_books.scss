@@ -66,26 +66,26 @@
             }
             .book-details{
                 width: 70%;
-                padding: 0.5rem 1rem;
+                padding: 0.2rem 1rem;
                 @media #{$mobile} {
                     width: 65%;
                 }
-                // .title{
-                //     overflow: hidden;
-                //     text-overflow: ellipsis;
-                //     white-space: nowrap;
-                // }
+                .title{
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
                 .description{
                     font-size: 0.8rem;
                     .author{
                         margin-top: 0.2rem;
                     }
                     .tag{
-                        margin-top: 0.2rem;
+                        margin-top: -0.1rem;
                     }
                 }
                 .stats-and-ratings{
-                    margin-top: 0.5rem;
+                    margin-top: 0.3rem;
                     display: flex;
                     align-items: center;
                     .left-meta{

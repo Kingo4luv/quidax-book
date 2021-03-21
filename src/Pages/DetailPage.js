@@ -10,12 +10,10 @@ const BookDetail = () => {
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    console.log(books);
-
     useEffect(() => {
         getBooks();
         getBook(bookId)
-    }, [books])
+    })
 
     const getBook = (bookId) => {
         
@@ -130,7 +128,7 @@ const BookDetail = () => {
 
                     <h4 className="subtitle">{book.subtitle}</h4>
                     <div className="description">
-                        dangerouslySetInnerHTML={{ __html: book.full_description }}
+                        { book.full_description }
                     </div>
                 </div>
 

@@ -3,3 +3,10 @@ body {
     font-family: 'Ubuntu', sans-serif;
     background-color: #fefefe;
 }
+
+button{
+    cursor: pointer;
+    &:focus{
+        outline:none;
+    }
+}

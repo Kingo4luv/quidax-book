@@ -4,9 +4,8 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import FeaturedBook from "./book";
 import { useEffect, useState } from 'react';
 
-const Featured = () => {
-    const [options, setOptions] = useState({
-        loop: true,
+const options = {
+    loop: true,
         margin: 10,
         responsive: {
             0: {
@@ -20,9 +19,12 @@ const Featured = () => {
             },
             1200: {
                 items: 8,
-            },
-        },
-    })
+            }
+        }
+};
+
+const Featured = () => {
+    
     useEffect(() => {
         getBooks();
     }, [])
