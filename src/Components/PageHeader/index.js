@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import BrandFull from '../../assets/brand-full.svg';
 import BrandLite from '../../assets/brand-lite.svg';
 import BookIcon from '../../assets/books.svg';
@@ -8,9 +8,24 @@ import BackArrowIcon from '../../assets/arrow.svg';
 import {motion, AnimatePresence} from 'framer-motion';
 import { useContext, useState } from 'react';
 import { CartContext } from "../../context/CartContext";
+import { BookContext } from "../../context/BookContext";
+
 
 const PageHeader = () => {
-     const {toggleCart, cart} = useContext(CartContext);
+    const {toggleCart, cart} = useContext(CartContext);
+    const {search} = useContext(BookContext);
+    const [searchTerm, setSearchTerm] = useState("");
+    let history = useHistory();
+    
+    const onChangeSearch = (e) => {
+        if (window.location.pathname !== '/search'){
+            history.push('/search')
+        }
+        setSearchTerm(e.target.value);
+        
+        search(searchTerm);
+    }
+
     const [openMobileSearch, setOpenMobileSearch] = useState(false);
     const toggleMobileSearch = () => {
         setOpenMobileSearch(!openMobileSearch)
@@ -20,12 +35,14 @@ const PageHeader = () => {
         <header>
             <div className="brand-container">
                 <div className="brand-logo">
-                    <img src={BrandFull} className="logo-full" alt="brand-logo"/>
-                    <img src={BrandLite} className="logo-lite" alt="brand-logo"/>
+                    <Link to="/">
+                        <img src={BrandFull} className="logo-full" alt="brand-logo"/>
+                        <img src={BrandLite} className="logo-lite" alt="brand-logo"/>
+                    </Link>
                 </div>
             </div>
             <div className="search-container">
-                <input type="text" className="search" placeholder="Search books, genres, author, etc." />
+                <input type="text" onKeyUp={onChangeSearch} className="search" placeholder="Search books, genres, author, etc." />
                 <button className="search-button">
                     <img src={SearchIcon} alt="search-icon"/>
                 </button>
@@ -45,7 +62,7 @@ const PageHeader = () => {
         </header>
         <AnimatePresence>
         {openMobileSearch && (
-            <div className="mobile-search-overlay" onClick={toggleMobileSearch}>
+            <div className="mobile-search-overlay">
             <motion.div className="mobile-search-container"
             initial={{y: "-100%"}}
             animate={{y: 0}}
@@ -56,8 +73,8 @@ const PageHeader = () => {
                     <img src={BackArrowIcon} alt="search-icon"/>
                 </button>
                 <div className="mobile-search-wrapper">
-                    <input type="text" className="search" placeholder="Search books, genres, author, etc." />
-                    <button className="search-button">
+                    <input type="text" onKeyUp={onChangeSearch} className="search" placeholder="Search books, genres, author, etc." />
+                        <button className="search-button">
                         <img src={SearchIcon} alt="search-icon"/>
                     </button>
                 </div>

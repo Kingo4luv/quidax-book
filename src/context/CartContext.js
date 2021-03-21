@@ -49,9 +49,7 @@ const CartContextProvider = (props) => {
         const book = cart.find((item, index) => parseInt(id) === item.id);
         book.quantity++
         book.total += book.price
-
-        const updatedBooks = cart.splice(bookIndex, 1, book);
-        setCart([...updatedBooks]);
+        setCart([...cart]);
         return;
 
     }
@@ -67,8 +65,8 @@ const CartContextProvider = (props) => {
         if(book.quantity === 0){
             return removeFromCart(bookIndex)
         }
-        const updatedBooks = cart.splice(bookIndex, 1, book);
-        setCart([...updatedBooks]);
+    
+        setCart([...cart]);
         return;
 
     }
