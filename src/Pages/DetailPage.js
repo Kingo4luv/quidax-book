@@ -6,10 +6,12 @@ import Loader from "../Components/Loader";
 import { CartContext } from "../context/CartContext";
 import {AnimatePresence} from 'framer-motion';
 import Cart from "../Components/Cart";
+import { BookContext } from "../context/BookContext";
 
 const BookDetail = () => {
     const {bookId} = useParams()
     const {addToCart, cartIsOpen} = useContext(CartContext);
+    const {getSingleBook} = useContext(BookContext);
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -25,10 +27,12 @@ const BookDetail = () => {
   
 
     const getBook = async () => {
-        const res = await fetch(`https://quidax-feec-graphql.herokuapp.com/books/${bookId}`);
-        const returnedBook = await res.json();
-        setBook(returnedBook)
-        setLoading(false);
+        // const res = await fetch(`https://quidax-feec-graphql.herokuapp.com/books/${bookId}`);
+        // const returnedBook = await res.json();
+        setBook(getSingleBook(bookId))
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
     }
 
     const getCopies = (copies) => {

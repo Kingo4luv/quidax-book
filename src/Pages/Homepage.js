@@ -18,10 +18,12 @@ const Homepage = () => {
     }, [])
     
     const getBooks = async()=> {
-        const res = await fetch('https://quidax-feec-graphql.herokuapp.com/books');
-        const books = await res.json();
-        setAllBooks([...books]);
-        setLoading(false);
+        // const res = await fetch('https://quidax-feec-graphql.herokuapp.com/books');
+        // const books = await res.json();
+        setAllBooks();
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000)
     }
 
     if(loading){

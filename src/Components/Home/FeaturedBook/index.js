@@ -17,15 +17,19 @@ class Featured extends Component{
                responsive: {
                    0: {
                        items: 2,
+                       dots: true,
                    },
                    600: {
                        items: 4,
+                       dots: true,
                    },
                    1000: {
                        items: 6,
+                       dots: true,
                    },
                    1200: {
                        items: 8,
+                       dots: true,
                    }
            },
            onInitialized: function () {

@@ -20,10 +20,12 @@ const SearchPage = () => {
      }, [])
 
      const getBooks = async () => {
-         const res = await fetch('https://quidax-feec-graphql.herokuapp.com/books');
-         const returnedBooks = await res.json();
-         setAllBooks([...returnedBooks]);
-         setLoading(false);
+        //  const res = await fetch('https://quidax-feec-graphql.herokuapp.com/books');
+        //  const returnedBooks = await res.json();
+         setAllBooks();
+         setTimeout(() => {
+             setLoading(false);
+         }, 2000);
 
      }
 
